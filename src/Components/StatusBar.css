@@ -1,0 +1,55 @@
+.char-icon {
+    width: 80px;
+    display: inline-block;
+    filter: drop-shadow(1px 1px 1px black)
+}
+
+.card-icon {
+    height: 50px;
+    display: inline-block;
+    filter: drop-shadow(1px 1px 1px black)
+}
+
+.score-icon {
+    height: 50px;
+    filter: drop-shadow(1px 1px 1px black)
+}
+
+.status {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.icon-label {
+    display: block;
+    font-size: 24px;
+    color: white;
+    text-shadow: 1px 2px 2px black;
+}
+
+#deck {
+    display: block;
+    background-image: url('DrawButton.png');
+    background-size: 90px 130px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    height: 130px;
+    width: 90px;
+    filter: drop-shadow(1px 1px 1px gainsboro)
+}
+
+.status-header {
+    margin-top: 0px;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+.status-bar {
+    background-color: darkgreen;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}

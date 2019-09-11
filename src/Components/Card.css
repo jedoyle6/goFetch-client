@@ -1,0 +1,12 @@
+.card-button {
+    width: 75px;
+    height: 105px;
+    margin: 5px;
+    background-size: 75px 105px;
+    background-repeat: none;
+    padding: 0px;
+    background-color: transparent;
+    border: none;
+    border-radius: 10px;
+    filter: drop-shadow(1px 1px 1px black)
+}
