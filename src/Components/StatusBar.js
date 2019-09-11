@@ -27,7 +27,7 @@ class StatusBar extends React.Component {
 
 
                 <div className="deck status">
-                    <button id="deck" className="deck" onClick={() => this.context.drawCard('player')}></button>
+                    <button id="deck" className="deck" onClick={() => console.log('clicked the deck button')}></button>
                     <label htmlFor="deck" className="icon-label">{this.context.cardsInDeck}</label>
                 </div>
 

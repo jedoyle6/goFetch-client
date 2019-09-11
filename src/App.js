@@ -20,22 +20,42 @@ class App extends React.Component {
     message: 'Your opponent is thinking...'
   }
 
+  asyncSetState = (state) => {
+    return new Promise((resolve) => {
+      this.setState(state, resolve)
+    });
+  }
+
   startGame = () => {
     this.shuffleDeck();
     this.drawStartingHands();
+  }
+
+  endGame = () => {
+    const playerScore = this.state.player.score;
+    const aiScore = this.state.ai.score;
+    if (playerScore > aiScore) console.log('Game Over! The player wins!')
+    if (aiScore > playerScore) console.log('Game Over! The AI wins!')
+    if (playerScore === aiScore) console.log('Game Over! It\'s a draw!')
+    console.log('Would you like to play again?')
+  }
+
+  checkEndGame = () => {
+    //The game should end if either player has 0 cards in hand, or if the deck has 0 cards in it.
+    return (this.state.player.hand.length === 0 || this.state.ai.hand.length === 0 || this.state.deck.length === 0)
   }
 
   drawCard = async (playerRef) => {
     const drawn = this.state.deck.slice(0, 1)
     const remainingDeck = this.state.deck.slice(1)
 
-    this.setState({ 
+    return this.asyncSetState({ 
       [playerRef]: { 
         hand: sortByValue([...this.state[playerRef].hand, ...drawn]),
         score: this.state[playerRef].score 
       },
       deck: remainingDeck
-    }, async () => await this.checkAndHandleMatch());
+    })
   }
 
   drawStartingHands = () => {
@@ -67,20 +87,15 @@ class App extends React.Component {
 
   switchActivePlayer = async () => {
     if (this.state.activePlayer === 'ai') {
-      this.setState({ 
+      return this.asyncSetState({ 
         activePlayer: 'player',
         inactivePlayer: 'ai'
-      }, () => console.log('It\'s your turn! Pick a card!'))
+      })
     }
     if (this.state.activePlayer === 'player') {
-      this.setState({ 
+      return this.asyncSetState({ 
         activePlayer: 'ai',
         inactivePlayer: 'player'
-      }, () => {
-        console.log('It\'s your opponent\'s turn!')
-        console.log('Your opponent is thinking...')
-        
-        this.handleCardRequest(this.aiPickCard())
       })
     }    
   }
@@ -92,7 +107,6 @@ class App extends React.Component {
     const activePlayer = this.state.activePlayer;
     const activeHand = this.state[activePlayer].hand;
     const match = handContainsMatch(this.state[activePlayer].hand)
-      
 
       if (match) {
         console.log(`${activePlayer} matched a set of four ${match.slice(1)}'s`)
@@ -114,18 +128,18 @@ class App extends React.Component {
     const inactivePlayer = this.state.inactivePlayer;
     let activeHand = [...this.state[activePlayer].hand];
     let inactiveHand = [...this.state[inactivePlayer].hand];
+    console.log(`${activePlayer}'s hand: ${activeHand}`)
+    console.log(`${inactivePlayer}'s hand: ${inactiveHand}`)
     console.log(`${activePlayer} says:`)
     console.log(cardCodeToRequest(cardId))
 
     if (handContainsCard(cardId, inactiveHand)) {
       //If present, removes all cards of the given value from the inactive player's hand and adds them to the active player's hand
-      console.log('Card found in other hand! Pick Another card!')
-      activeHand = sortByValue([...activeHand, ...inactiveHand.filter(card => card.includes(cardId.slice(1)))])
-      
-      console.log(`${inactivePlayer}'s hand: ${inactiveHand}`)
+
+      activeHand = sortByValue([...activeHand, ...inactiveHand.filter(card => card.includes(cardId.slice(1)))])      
       inactiveHand = inactiveHand.filter(card => !card.includes(cardId.slice(1)))
 
-      this.setState({
+      await this.asyncSetState({
         [activePlayer]: {
           hand: activeHand,
           score: this.state[activePlayer].score
@@ -134,30 +148,45 @@ class App extends React.Component {
           hand: inactiveHand,
           score: this.state[inactivePlayer].score
         }
-      }, async () => {
-        await this.checkAndHandleMatch()
-        if (activePlayer==='ai') this.handleCardRequest(this.aiPickCard())
       })
+      //Checks for any matches of four cards
+      //Checks for endgame state
+      //Checks to see if it's the AI's turn - if it is, the AI takes another turn
+      console.log('Matching card found in other hand! Pick another card!')
+      await this.checkAndHandleMatch()
+      if (this.checkEndGame()) {
+        this.endGame()
+      } else if (activePlayer==='ai') {
+        this.handleCardRequest(this.aiPickCard())
+      }
       
-
-      
-
             
     } else {
-      //If not present, active player draws one card
-      console.log('no matching card found in other hand')
-      console.log('drawing a card instead...')
+      //If the requested card is not present, active player draws one card
+      console.log('No matching card found! Go Fish!')
       //Check the top card of the deck (before it's drawn) and see if it's a match to the card the player requested
       const match = this.state.deck[0].slice(1) === cardId.slice(1)
-      if (match) console.log(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`)
+      //Then draw the card and process any matches
+      await this.drawCard(activePlayer)
+      await this.checkAndHandleMatch()
 
-      this.drawCard(activePlayer)
-
-      console.log(`${inactivePlayer}'s hand: ${inactiveHand}`)
-
-      if (!match) this.switchActivePlayer();
-      if (match && activePlayer === 'ai') this.handleCardRequest(this.aiPickCard())
-      
+      //Check for endgame state
+      //If the game is over, display the endgame prompt
+      if(this.checkEndGame()) {
+        this.endGame()
+      }
+      //Otherwise, if the card is a match, the active player gets another turn
+      //Have the AI request another card, if it's the AI's turn
+      else if (match) {
+        console.log(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`)        
+        if (activePlayer === 'ai') this.handleCardRequest(this.aiPickCard())
+      }
+      //If the card is not a match, switch active players.
+      //If this would cause it to be the AI's turn, have the AI take a turn.
+      else if (!match) {
+        await this.switchActivePlayer();
+        if (this.state.activePlayer === 'ai') this.handleCardRequest(this.aiPickCard())
+      }      
     }
   }
 
