@@ -1,0 +1,31 @@
+html { 
+    background: url('./Images/BackgroundImage.png') no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.homescreen-header {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+    margin: 20px;
+}
+
+.homescreen-navbutton {
+    display: block;
+    background-color: darkgreen;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+    border: 1px solid white;
+    width: 120px;
+    height: 40px;
+    margin: 25px;
+}
+
+.home-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}

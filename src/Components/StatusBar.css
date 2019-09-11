@@ -53,3 +53,10 @@
     display: flex;
     justify-content: space-between;
 }
+
+.footer-text {
+    margin-top: 20px;
+    margin-bottom: 15px;
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}

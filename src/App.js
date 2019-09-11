@@ -1,8 +1,11 @@
 import React from 'react';
 import './App.css';
-import GameScreen from './Components/GameScreen'
-import { DECK, shuffle, sortByValue, handContainsCard, handContainsMatch, cardCodeToRequest } from './Helpers/helpers'
+import GameScreen from './Components/GameScreen';
+import SummaryScreen from './Components/SummaryScreen';
+import { DECK, shuffle, sortByValue, handContainsCard, handContainsMatch, cardCodeToRequest } from './Helpers/helpers';
 import GameContext from './GameContext';
+import Leaderboard from './Components/Leaderboard';
+import HomeScreen from './Components/HomeScreen';
 
 class App extends React.Component {
   state = {
@@ -213,7 +216,7 @@ class App extends React.Component {
     return (
     <div className="App">
       <GameContext.Provider value={gameContextValue}>
-        <GameScreen />
+        <HomeScreen />
       </GameContext.Provider>
     </div>
     )

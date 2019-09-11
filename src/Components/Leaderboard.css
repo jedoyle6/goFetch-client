@@ -1,0 +1,52 @@
+.leaderboard-header {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+    margin: 0px;
+}
+
+.leaderboard {
+    background-color: darkslategray;
+    display: inline-block;
+    padding: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.leaderboard-table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.leaderboard-toggle {
+    background-color: brown;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    border: 1px solid white;
+    width: 80px;
+    height: 25px;
+}
+
+.leaderboard-container {
+    display: flex;
+    align-items: center;
+}
+
+.leaderboard-nav {
+    background-color: transparent;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    border: 1px solid white;
+    height: 25px;
+    width: 25px;
+}
+
+.leaderboard-startgame {
+    background-color: brown;
+    color: white;
+    text-shadow: 1px 1px 1px black;
+    border: 1px solid white;
+    height: 40px;
+    width: 80px;
+}
