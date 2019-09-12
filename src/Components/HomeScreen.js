@@ -12,7 +12,7 @@ class HomeScreen extends React.Component {
                 <h2 className="homescreen-header">Where Dogs Play Go Fish</h2>
 
                 <div className="homescreen-container">
-                    <button className="homescreen-navbutton">Log In</button>                    
+                    {/* <button className="homescreen-navbutton">Log In</button>                     */}
                     <Link to='/leaderboard'><button className="homescreen-navbutton">Leaderboard</button></Link>
                     <Link to='/game'><button className="homescreen-navbutton">Play!</button></Link>
                     
