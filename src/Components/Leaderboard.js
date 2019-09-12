@@ -1,19 +1,27 @@
 import React from 'react';
 import './Leaderboard.css';
-import { TEAM_LB_DATA, PLAYER_LB_DATA } from '../DUMMY-LB-DATA';
 import ScoreEntry from './ScoreEntry'
 import { Link } from 'react-router-dom';
+import ApiService from '../Helpers/ApiService';
 
 class Leaderboard extends React.Component {
-    state = {
-        teamScoreData: TEAM_LB_DATA,
-        playerScoreData: PLAYER_LB_DATA,
+    state = {        
+        playerScoreData: [],
+        teamScoreData: [],
         show: 'player'
     }
 
+    componentDidMount() {
+        Promise.all([ApiService.getPlayerLeaderboard(), ApiService.getTeamLeaderboard()]).then(values => {
+            const playerScoreData = values[0];
+            const teamScoreData = values[1];
+            this.setState({playerScoreData, teamScoreData})
+        })
+    }
+
     render() {
-        const teamScores = this.state.teamScoreData.map((teamData, index) => <ScoreEntry key={index} rank={index+1} name={teamData.name} score={teamData.score}/>)
-        const playerScores = this.state.playerScoreData.map((teamData, index) => <ScoreEntry key={index} rank={index+1} name={teamData.name} score={teamData.score}/>)
+        const teamScores = this.state.teamScoreData.map((teamData, index) => <ScoreEntry key={index} rank={index+1} name={teamData.team_name} score={teamData.sum}/>)
+        const playerScores = this.state.playerScoreData.map((playerData, index) => <ScoreEntry key={index} rank={index+1} name={playerData.user_name} score={playerData.sum}/>)
 
         return(
             <div className="leaderboard-screen">
