@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import GameScreen from './Components/GameScreen';
 import SummaryScreen from './Components/SummaryScreen';
@@ -29,9 +30,9 @@ class App extends React.Component {
     });
   }
 
-  startGame = () => {
-    this.shuffleDeck();
-    this.drawStartingHands();
+  startGame = async () => {
+    await this.shuffleDeck();
+    await this.drawStartingHands();
   }
 
   endGame = () => {
@@ -66,21 +67,21 @@ class App extends React.Component {
     const aiDrawn = sortByValue(this.state.deck.slice(7, 14));
     const remainingDeck = this.state.deck.slice(14)
 
-    this.setState({ 
+    return this.asyncSetState({ 
       player: { 
         hand: [...playerDrawn], 
-        score: this.state.player.score 
+        score: 0 
       },
       ai: { 
         hand: [...aiDrawn],
-        score: this.state.ai.score 
+        score: 0 
       },
       deck: remainingDeck
     });
   }
 
   shuffleDeck = () => {
-    this.setState({deck: shuffle([...DECK])})
+    return this.asyncSetState({deck: shuffle([...DECK])})
   }
 
   aiPickCard = () => {
@@ -210,13 +211,23 @@ class App extends React.Component {
       cardsInDeck: this.state.deck.length,
       drawCard: this.drawCard,
       switchActivePlayer: this.switchActivePlayer,
-      handleCardRequest: this.handleCardRequest
+      handleCardRequest: this.handleCardRequest,
+      restartGame: this.startGame
     }
 
     return (
     <div className="App">
       <GameContext.Provider value={gameContextValue}>
-        <HomeScreen />
+        <Switch>
+          <Route exact path='/' component={HomeScreen}/>
+          <Route path='/leaderboard' component={Leaderboard} />
+          {
+            this.checkEndGame() &&
+            <Route path='/game' component={SummaryScreen} />
+          }
+          <Route path='/game' component={GameScreen} />
+
+        </Switch>        
       </GameContext.Provider>
     </div>
     )

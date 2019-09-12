@@ -1,6 +1,7 @@
 import React from 'react';
 import './SummaryScreen.css';
 import GameContext from '../GameContext';
+import { Link } from 'react-router-dom';
 
 class SummaryScreen extends React.Component {
     static contextType = GameContext;
@@ -51,8 +52,8 @@ class SummaryScreen extends React.Component {
                 </div>
                 <p className="footer-text">{bottomText}</p>
                 <div className="summary-container">
-                    <button className="navButton">Play Again?</button>
-                    <button className="navButton">Leaderboard</button>
+                    <Link to='/game'><button className="navButton" onClick={this.context.restartGame}>Play Again?</button></Link>
+                    <Link to='/leaderboard'><button className="navButton">Leaderboard</button></Link>
                 </div>
                 
 

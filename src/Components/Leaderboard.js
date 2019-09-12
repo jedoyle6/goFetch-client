@@ -2,6 +2,7 @@ import React from 'react';
 import './Leaderboard.css';
 import { TEAM_LB_DATA, PLAYER_LB_DATA } from '../DUMMY-LB-DATA';
 import ScoreEntry from './ScoreEntry'
+import { Link } from 'react-router-dom';
 
 class Leaderboard extends React.Component {
     state = {
@@ -38,7 +39,7 @@ class Leaderboard extends React.Component {
                     </div>
                 </div>
                 <div>
-                    <button className="leaderboard-startgame">Play!</button>
+                    <Link to='/game'><button className="leaderboard-startgame">Play!</button></Link>
                 </div>                
             </div>            
         );
