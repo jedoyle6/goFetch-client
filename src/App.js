@@ -7,6 +7,7 @@ import { DECK, shuffle, sortByValue, handContainsCard, handContainsMatch, cardCo
 import GameContext from './GameContext';
 import Leaderboard from './Components/Leaderboard';
 import HomeScreen from './Components/HomeScreen';
+import ApiService from './Helpers/ApiService';
 
 class App extends React.Component {
   state = {
@@ -21,7 +22,8 @@ class App extends React.Component {
     activePlayer: 'player',
     inactivePlayer: 'ai',
     deck: shuffle([...DECK]),
-    message: 'Your opponent is thinking...'
+    message: 'Your opponent is thinking...',
+    playerId: 2
   }
 
   asyncSetState = (state) => {
@@ -38,10 +40,7 @@ class App extends React.Component {
   endGame = () => {
     const playerScore = this.state.player.score;
     const aiScore = this.state.ai.score;
-    if (playerScore > aiScore) console.log('Game Over! The player wins!')
-    if (aiScore > playerScore) console.log('Game Over! The AI wins!')
-    if (playerScore === aiScore) console.log('Game Over! It\'s a draw!')
-    console.log('Would you like to play again?')
+    if (playerScore > aiScore) ApiService.reportGameScore(this.state.playerId, this.state.player.score)
   }
 
   checkEndGame = () => {

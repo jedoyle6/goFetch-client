@@ -11,12 +11,16 @@ class Leaderboard extends React.Component {
         show: 'player'
     }
 
-    componentDidMount() {
+    updateLeaderboard = () => {
         Promise.all([ApiService.getPlayerLeaderboard(), ApiService.getTeamLeaderboard()]).then(values => {
             const playerScoreData = values[0];
             const teamScoreData = values[1];
             this.setState({playerScoreData, teamScoreData})
         })
+    }
+
+    componentDidMount() {
+        this.updateLeaderboard()
     }
 
     render() {
@@ -47,6 +51,7 @@ class Leaderboard extends React.Component {
                     </div>
                 </div>
                 <div>
+                    <button className="leaderboard-startgame" onClick={this.updateLeaderboard}>Refresh</button>
                     <Link to='/game'><button className="leaderboard-startgame">Play!</button></Link>
                 </div>                
             </div>            

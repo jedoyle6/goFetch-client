@@ -3,6 +3,7 @@ import './SummaryScreen.css';
 import GameContext from '../GameContext';
 import { Link } from 'react-router-dom';
 
+
 class SummaryScreen extends React.Component {
     static contextType = GameContext;
 
@@ -13,7 +14,7 @@ class SummaryScreen extends React.Component {
         let bottomText;
         if (playerScore > aiScore) {
             headerText = 'You Win!'
-            bottomText = `You earn ${playerScore+10} points!`
+            bottomText = `You earn ${playerScore} points!`
         } else if (aiScore > playerScore) {
             headerText = 'The AI Wins!'
             bottomText = 'Better luck next time!'
