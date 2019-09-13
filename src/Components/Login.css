@@ -1,0 +1,22 @@
+.login-form {
+    margin: auto;
+    margin-top: 5px;
+    width: 400px;
+    padding: 1em;
+    border: 1px solid white;
+    border-radius: 1em;
+    background-color: whitesmoke;
+}
+
+.login-label {
+    display: inline-block;
+    width: 90px;
+    text-align: right;
+    margin: 3px;
+}
+
+.login-text-input {
+    width: 300px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+}
