@@ -10,6 +10,7 @@ import HomeScreen from './Components/HomeScreen';
 import ApiService from './Helpers/ApiService';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
+import Profile from './Components/Profile';
 
 class App extends React.Component {
   state = {
@@ -275,6 +276,7 @@ class App extends React.Component {
           <Route path='/game' component={GameScreen} />
           <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
+          <Route path='/profile' component={Profile} />
 
         </Switch>        
       </GameContext.Provider>
