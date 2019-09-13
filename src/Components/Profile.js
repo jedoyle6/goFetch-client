@@ -6,7 +6,7 @@ class Card extends React.Component {
   static contextType = GameContext;
 
   state = {
-    playerName: 'Player Name',
+    playerName: 'Billy Bulldog',
     points: 30,
     rank: 12,
     totalPlayers: 20,
@@ -27,7 +27,7 @@ class Card extends React.Component {
     return(
       <div className="profile-page">
         <h1>{this.state.playerName}</h1>
-        <img src={this.getAvatarByTeam()} alt="Your player avatar" classname="avatar"></img>
+        <img src={this.getAvatarByTeam()} alt="Your player avatar" className="avatar"></img>
         <h2>Points: {this.state.points}</h2>
         <h3>You are currently ranked {this.state.rank} out of {this.state.totalPlayers}.</h3>
         <button>Leaderboard</button>
