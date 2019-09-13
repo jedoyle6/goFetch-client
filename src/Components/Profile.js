@@ -2,7 +2,7 @@ import React from 'react';
 import './Profile.css';
 import GameContext from '../GameContext';
 
-class Card extends React.Component {
+class Profile extends React.Component {
   static contextType = GameContext;
 
   state = {
@@ -38,4 +38,4 @@ class Card extends React.Component {
   }
 }
 
-export default Card;
+export default Profile;

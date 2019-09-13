@@ -11,6 +11,7 @@ import ApiService from './Helpers/ApiService';
 import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
+import Rules from './Components/Rules';
 
 class App extends React.Component {
   state = {
@@ -277,6 +278,7 @@ class App extends React.Component {
           <Route path='/login' component={Login} />
           <Route path='/signup' component={SignUp} />
           <Route path='/profile' component={Profile} />
+          <Route path='/rules' component={Rules} />
 
         </Switch>        
       </GameContext.Provider>
