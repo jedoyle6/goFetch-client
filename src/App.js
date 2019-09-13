@@ -22,14 +22,26 @@ class App extends React.Component {
     activePlayer: 'player',
     inactivePlayer: 'ai',
     deck: shuffle([...DECK]),
-    message: 'Your opponent is thinking...',
-    playerId: 2
+    message: 'It\'s your turn! Pick a card!',
+    playerId: 2,
+    cardsLocked: false
   }
 
   asyncSetState = (state) => {
     return new Promise((resolve) => {
       this.setState(state, resolve)
     });
+  }
+
+  pause = (delay) => {
+    return new Promise((resolve) => {
+      setTimeout(resolve, delay)
+    });
+  }
+
+  displayText = async (text, delay) => {
+    await this.asyncSetState({message: text})
+    return this.pause(delay)
   }
 
   startGame = async () => {
@@ -103,6 +115,14 @@ class App extends React.Component {
     }    
   }
 
+  lockHand = async () => {
+    return this.asyncSetState({cardsLocked: true})
+  }
+
+  unlockHand = async () => {
+    return this.asyncSetState({cardsLocked: false})
+  }
+
   checkAndHandleMatch = async () => {
     //Reads state to determine the current active player
     //Checks the active player's hand for sets of four cards
@@ -113,7 +133,8 @@ class App extends React.Component {
 
       if (match) {
         console.log(`${activePlayer} matched a set of four ${match.slice(1)}'s`)
-        this.setState({
+        await this.displayText(`${activePlayer} matched a set of four ${match.slice(1)}'s`, 1500)
+        return this.asyncSetState({
           [activePlayer]: {
             hand: activeHand.filter(card => !card.includes(match.slice(1))),
             score: this.state[activePlayer].score + 1
@@ -133,8 +154,10 @@ class App extends React.Component {
     let inactiveHand = [...this.state[inactivePlayer].hand];
     console.log(`${activePlayer}'s hand: ${activeHand}`)
     console.log(`${inactivePlayer}'s hand: ${inactiveHand}`)
-    console.log(`${activePlayer} says:`)
-    console.log(cardCodeToRequest(cardId))
+    console.log(`${activePlayer} says: ${cardCodeToRequest(cardId)}`)
+    //Lock the hand so the player can't button mash
+    await this.lockHand()
+    await this.displayText(`${activePlayer} says: ${cardCodeToRequest(cardId)}`, 1500)
 
     if (handContainsCard(cardId, inactiveHand)) {
       //If present, removes all cards of the given value from the inactive player's hand and adds them to the active player's hand
@@ -156,17 +179,23 @@ class App extends React.Component {
       //Checks for endgame state
       //Checks to see if it's the AI's turn - if it is, the AI takes another turn
       console.log('Matching card found in other hand! Pick another card!')
+      
       await this.checkAndHandleMatch()
       if (this.checkEndGame()) {
         this.endGame()
       } else if (activePlayer==='ai') {
+        await this.displayText('Matching card found in other hand! Pick another card!', 1500)
         this.handleCardRequest(this.aiPickCard())
+      } else {
+        await this.displayText('Matching card found in other hand! Pick another card!', 1)
+        await this.unlockHand() //Unlock the player's hand so they can go again
       }
       
             
     } else {
       //If the requested card is not present, active player draws one card
       console.log('No matching card found! Go Fish!')
+      await this.displayText('No matching card found! Go Fish!', 1500)
       //Check the top card of the deck (before it's drawn) and see if it's a match to the card the player requested
       const match = this.state.deck[0].slice(1) === cardId.slice(1)
       //Then draw the card and process any matches
@@ -181,14 +210,28 @@ class App extends React.Component {
       //Otherwise, if the card is a match, the active player gets another turn
       //Have the AI request another card, if it's the AI's turn
       else if (match) {
-        console.log(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`)        
-        if (activePlayer === 'ai') this.handleCardRequest(this.aiPickCard())
+        console.log(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`)
+                
+        if (activePlayer === 'ai') {
+          await this.displayText(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`, 1500)
+          this.handleCardRequest(this.aiPickCard())
+        }
+        if (activePlayer === 'player') {
+          await this.displayText(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`, 1)
+          await this.unlockHand() //Unlock the player's hand so they can go again
+        }
       }
       //If the card is not a match, switch active players.
       //If this would cause it to be the AI's turn, have the AI take a turn.
       else if (!match) {
         await this.switchActivePlayer();
-        if (this.state.activePlayer === 'ai') this.handleCardRequest(this.aiPickCard())
+        if (this.state.activePlayer === 'ai') {
+          await this.displayText(`It's your opponent's turn!`, 1500)
+          this.handleCardRequest(this.aiPickCard())
+        } else if (this.state.activePlayer === 'player') {
+          await this.displayText(`It's your turn! Pick a card!`, 1)
+          await this.unlockHand() //Unlock the player's hand so they can go again
+        }        
       }      
     }
   }
@@ -211,7 +254,10 @@ class App extends React.Component {
       drawCard: this.drawCard,
       switchActivePlayer: this.switchActivePlayer,
       handleCardRequest: this.handleCardRequest,
-      restartGame: this.startGame
+      restartGame: this.startGame,
+      message: this.state.message,
+      cardsLocked: this.state.cardsLocked,
+      lockHand: this.lockHand
     }
 
     return (

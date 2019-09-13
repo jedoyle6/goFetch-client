@@ -10,8 +10,9 @@ class Card extends React.Component {
         return(
             <button 
             className="card-button" 
+            disabled={this.context.cardsLocked ? true : false}
             id={this.props.id} 
-            onClick={() => this.context.handleCardRequest(this.props.id)}
+            onClick={() => this.context.cardsLocked ? null : this.context.handleCardRequest(this.props.id)}
             ></button>
         );
     }
