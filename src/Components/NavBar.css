@@ -1,0 +1,14 @@
+.navbar {
+    background-color: darkgreen;
+    text-align: right;
+}
+
+.navbar-link {
+    color: white;
+    margin-right: 10px;
+    text-decoration: none;
+}
+
+.navbar-link:visited {
+    color: white;
+}

@@ -15,6 +15,7 @@ import Rules from './Components/Rules';
 import TokenService from './Helpers/TokenService';
 import PrivateOnlyRoute from './Helpers/PrivateOnlyRoute';
 import PublicOnlyRoute from './Helpers/PublicOnlyRoute';
+import NavBar from './Components/NavBar';
 
 class App extends React.Component {
   state = {
@@ -60,10 +61,12 @@ class App extends React.Component {
   }
 
   startGame = async () => {
+    await this.shuffleDeck();
+    await this.drawStartingHands();
+    await this.asyncSetState({ai_team: Math.floor(Math.random()*3)+1})
     if (!TokenService.hasAuthToken()) {
       await this.asyncSetState({
         team_id: Math.floor(Math.random()*3)+1,
-        ai_team: Math.floor(Math.random()*3)+1
       })
     } else if (TokenService.hasAuthToken() && !this.state.team_id) {
       await ApiService.getProfileData()
@@ -79,8 +82,6 @@ class App extends React.Component {
       })
       .catch(err => console.log(err.message))
     }
-    await this.shuffleDeck();
-    await this.drawStartingHands();
   }
 
   endGame = () => {
@@ -305,6 +306,7 @@ class App extends React.Component {
     return (
     <div className="App">
       <GameContext.Provider value={gameContextValue}>
+        <NavBar />
         <Switch>
           <Route exact path='/' component={HomeScreen}/>
           <Route path='/leaderboard' component={Leaderboard} />

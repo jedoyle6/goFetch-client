@@ -9,6 +9,7 @@ class HomeScreen extends React.Component {
 
         return(
             <div className="home-screen">
+                <img src="./Images/BackgroundImage.png" className="background" alt="background of dogs playing go fish"></img>
                 <h1 className="homescreen-header">Go Fetch!</h1>
                 <h2 className="homescreen-header">Where Dogs Play Go Fish</h2>
 
@@ -18,6 +19,7 @@ class HomeScreen extends React.Component {
                     <Link to='/leaderboard'><button className="homescreen-navbutton">Leaderboard</button></Link>
                     {!TokenService.hasAuthToken() && <Link to='/game'><button className="homescreen-navbutton">Quick Play!</button></Link>}
                     {TokenService.hasAuthToken() && <Link to='/game'><button className="homescreen-navbutton">Play!</button></Link>}
+                    <Link to='/rules'><button className="homescreen-navbutton">Rules</button></Link>
                     
                 </div>               
                 

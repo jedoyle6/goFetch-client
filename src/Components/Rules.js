@@ -1,5 +1,6 @@
 import React from 'react';
 import './Rules.css';
+import { Link } from 'react-router-dom';
 import GameContext from '../GameContext';
 
 class Rules extends React.Component {
@@ -47,8 +48,9 @@ class Rules extends React.Component {
         <p>
           The game ends when one person lays all their cards on the table, or the deck is empty, 
           whichever comes first. The person with the most points wins the game.
-        </p>    
-          
+        </p>
+
+        <Link to='/'><button className="rules-navbutton">Home</button></Link>
       </div>
     );
   }

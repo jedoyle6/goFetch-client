@@ -39,6 +39,7 @@ class Profile extends React.Component {
         <h3>You are currently ranked {this.context.rank} out of {this.context.totalPlayers}.</h3>
         <Link to='/leaderboard'><button className="profile-navbutton">Leaderboard</button></Link>
         <Link to='/game'><button className="profile-navbutton">Play!</button></Link>
+        <Link to='/rules'><button className="profile-navbutton">Rules</button></Link>
         <Link to='/'><button className="profile-navbutton" onClick={TokenService.clearAuthToken}>Log Out</button></Link>
           
       </div>
