@@ -13,6 +13,8 @@ import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
 import Rules from './Components/Rules';
 import TokenService from './Helpers/TokenService';
+import PrivateOnlyRoute from './Helpers/PrivateOnlyRoute';
+import PublicOnlyRoute from './Helpers/PublicOnlyRoute';
 
 class App extends React.Component {
   state = {
@@ -289,9 +291,9 @@ class App extends React.Component {
             <Route path='/game' component={SummaryScreen} />
           }
           <Route path='/game' component={GameScreen} />
-          <Route path='/login' component={Login} />
-          <Route path='/signup' component={SignUp} />
-          <Route path='/profile' component={Profile} />
+          <PublicOnlyRoute path='/login' component={Login} />
+          <PublicOnlyRoute path='/signup' component={SignUp} />
+          <PrivateOnlyRoute path='/profile' component={Profile} />
           <Route path='/rules' component={Rules} />
 
         </Switch>        

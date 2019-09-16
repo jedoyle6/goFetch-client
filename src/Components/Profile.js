@@ -1,5 +1,6 @@
 import React from 'react';
 import './Profile.css';
+import { Link } from 'react-router-dom';
 import GameContext from '../GameContext';
 import ApiService from '../Helpers/ApiService';
 import TokenService from '../Helpers/TokenService';
@@ -8,14 +9,6 @@ class Profile extends React.Component {
   static contextType = GameContext;
 
   state = {error: null}
-
-  // state = {
-  //   playerName: 'Billy Bulldog',
-  //   points: 30,
-  //   rank: 12,
-  //   totalPlayers: 20,
-  //   team_id: 2
-  // }
 
   getAvatarByTeam =() => {
     const team = this.context.team_id
@@ -53,8 +46,9 @@ class Profile extends React.Component {
         <img src={this.getAvatarByTeam()} alt="Your player avatar" className="avatar"></img>
         <h2>Total Points: {this.context.total_points}</h2>
         <h3>You are currently ranked {this.context.rank} out of {this.context.totalPlayers}.</h3>
-        <button>Leaderboard</button>
-        <button>Play!</button>
+        <Link to='/leaderboard'><button className="profile-navbutton">Leaderboard</button></Link>
+        <Link to='/game'><button className="profile-navbutton">Play!</button></Link>
+        <Link to='/'><button className="profile-navbutton" onClick={TokenService.clearAuthToken}>Log Out</button></Link>
           
       </div>
     );
