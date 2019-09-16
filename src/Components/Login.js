@@ -14,7 +14,6 @@ class Login extends React.Component {
 
     handleSubmitLogin = (event) => {
         event.preventDefault();
-        console.log('Submitted!');
         this.setState({ error: null })
     const {user_name, password } = event.target;
 
@@ -26,11 +25,11 @@ class Login extends React.Component {
       user_name.value = '';
       password.value = '';
       TokenService.saveAuthToken(res.authToken);
-      this.props.onLoginSuccess();
+      
       ApiService.getProfileData()
         .then(profileData => {
             const {user_name, total_points, team_id, rank, totalPlayers} = profileData;
-            this.context.asyncSetState({
+            return this.context.asyncSetState({
                 user_name,
                 total_points,
                 team_id,

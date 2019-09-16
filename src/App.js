@@ -30,11 +30,11 @@ class App extends React.Component {
     message: 'It\'s your turn! Pick a card!',
     cardsLocked: false,
 
-    user_name: 'Billy Bulldog',
-    total_points: 33,
-    rank: 11,
-    totalPlayers: 22,
-    team_id: 2
+    user_name: null,
+    total_points: null,
+    rank: null,
+    totalPlayers: null,
+    team_id: null
     
   }
 

@@ -2,9 +2,12 @@ import React from 'react';
 import './Profile.css';
 import GameContext from '../GameContext';
 import ApiService from '../Helpers/ApiService';
+import TokenService from '../Helpers/TokenService';
 
 class Profile extends React.Component {
   static contextType = GameContext;
+
+  state = {error: null}
 
   // state = {
   //   playerName: 'Billy Bulldog',
@@ -22,6 +25,25 @@ class Profile extends React.Component {
       case 3: return "./Images/Dogs/PenelopePoodle_icon.png"
       default: return "./Images/Dogs/BillyBulldog_icon.png"
     }     
+  }
+
+  componentDidMount () {
+    if (TokenService.hasAuthToken()) {
+      ApiService.getProfileData()
+      .then(profileData => {
+        const {user_name, total_points, team_id, rank, totalPlayers} = profileData;
+        return this.context.asyncSetState({
+            user_name,
+            total_points,
+            team_id,
+            rank,
+            totalPlayers
+        });
+    })
+    .catch(res => {
+        this.setState({ error: res.error })
+    })
+    }
   }
 
   render() {

@@ -64,8 +64,8 @@ const ApiService ={
     },
 
     getProfileData () {
-      return fetch(`${config.API_ENDPOINT}/gamelog`, {
-          method: 'POST',
+      return fetch(`${config.API_ENDPOINT}/profile`, {
+          method: 'GET',
           headers: {
               'content-type': 'application/json',
               'Authorization': `Bearer ${TokenService.getAuthToken()}`
