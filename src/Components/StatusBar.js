@@ -36,17 +36,17 @@ class StatusBar extends React.Component {
                 <div className="ai status">
                     <h2 className="status-header">Opponent</h2>
 
-                    <div className="score status">
-                        <img id="ai-score" className="score-icon" src="./Images/GoldStar.png" alt="score"></img>
-                        <label htmlFor="ai-score" className="icon-label">{this.context.aiScore}</label>
-                    </div>  
-                    
+                    <img className="char-icon" src={getAvatarByTeamId(this.context.ai_team)} alt="character portrait"></img> 
+
                     <div className="cards-in-hand status">
                         <img id="ai-cards-in-hand" className="card-icon" src="./Images/CardBack.png" alt="cards in hand"></img>
                         <label htmlFor="ai-cards-in-hand" className="icon-label">{this.context.aiHand.length}</label>
                     </div>
 
-                    <img className="char-icon" src={getAvatarByTeamId(this.context.ai_team)} alt="character portrait"></img>                                      
+                    <div className="score status">
+                        <img id="ai-score" className="score-icon" src="./Images/GoldStar.png" alt="score"></img>
+                        <label htmlFor="ai-score" className="icon-label">{this.context.aiScore}</label>
+                    </div>                           
                 </div>
 
             </div>            

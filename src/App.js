@@ -65,6 +65,19 @@ class App extends React.Component {
         team_id: Math.floor(Math.random()*3)+1,
         ai_team: Math.floor(Math.random()*3)+1
       })
+    } else if (TokenService.hasAuthToken() && !this.state.team_id) {
+      await ApiService.getProfileData()
+        .then(profileData => {
+          const {user_name, total_points, team_id, rank, totalPlayers} = profileData;
+          return this.asyncSetState({
+              user_name,
+              total_points,
+              team_id,
+              rank,
+              totalPlayers
+          });
+      })
+      .catch(err => console.log(err.message))
     }
     await this.shuffleDeck();
     await this.drawStartingHands();
