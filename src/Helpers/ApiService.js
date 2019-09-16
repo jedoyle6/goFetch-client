@@ -1,4 +1,5 @@
 import config from '../config';
+import TokenService from './TokenService';
 
 const ApiService ={
     getPlayerLeaderboard () {
@@ -23,7 +24,8 @@ const ApiService ={
         return fetch(`${config.API_ENDPOINT}/gamelog`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                'Authorization': `Bearer ${TokenService.getAuthToken()}`
             },
             body: JSON.stringify({player_id, points})
         })
@@ -34,7 +36,7 @@ const ApiService ={
         )
     },
 
-    postLogin(credentials){
+    postLogin(credentials) {
         return fetch(`${config.API_ENDPOINT}/login`, {
           method:'POST',
           headers: {
@@ -44,7 +46,7 @@ const ApiService ={
         })
         .then(res => (!res.ok) ?
           res.json().then(e => Promise.reject(e)) : res.json())
-      },
+    },
 
     postUser(user) {
         return fetch(`${config.API_ENDPOINT}/signup`, {
@@ -59,7 +61,22 @@ const ApiService ={
               ? res.json().then(e => Promise.reject(e))
               : res.json()
           )
-      },
+    },
+
+    getProfileData () {
+      return fetch(`${config.API_ENDPOINT}/gamelog`, {
+          method: 'POST',
+          headers: {
+              'content-type': 'application/json',
+              'Authorization': `Bearer ${TokenService.getAuthToken()}`
+          },
+      })
+      .then(res => 
+          (!res.ok) 
+          ? res.json().then(e => Promise.reject(e))
+          : res.json()
+      )
+  },
 }
 
 export default ApiService;

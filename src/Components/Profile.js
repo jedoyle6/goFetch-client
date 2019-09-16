@@ -1,20 +1,21 @@
 import React from 'react';
 import './Profile.css';
 import GameContext from '../GameContext';
+import ApiService from '../Helpers/ApiService';
 
 class Profile extends React.Component {
   static contextType = GameContext;
 
-  state = {
-    playerName: 'Billy Bulldog',
-    points: 30,
-    rank: 12,
-    totalPlayers: 20,
-    team_id: 2
-  }
+  // state = {
+  //   playerName: 'Billy Bulldog',
+  //   points: 30,
+  //   rank: 12,
+  //   totalPlayers: 20,
+  //   team_id: 2
+  // }
 
   getAvatarByTeam =() => {
-    const team = this.state.team_id
+    const team = this.context.team_id
     switch (team) {
       case 1: return "./Images/Dogs/TerryTerrier_icon.png"
       case 2: return "./Images/Dogs/BillyBulldog_icon.png"
@@ -26,10 +27,10 @@ class Profile extends React.Component {
   render() {
     return(
       <div className="profile-page">
-        <h1>{this.state.playerName}</h1>
+        <h1>{this.context.user_name}</h1>
         <img src={this.getAvatarByTeam()} alt="Your player avatar" className="avatar"></img>
-        <h2>Points: {this.state.points}</h2>
-        <h3>You are currently ranked {this.state.rank} out of {this.state.totalPlayers}.</h3>
+        <h2>Total Points: {this.context.total_points}</h2>
+        <h3>You are currently ranked {this.context.rank} out of {this.context.totalPlayers}.</h3>
         <button>Leaderboard</button>
         <button>Play!</button>
           

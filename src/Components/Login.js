@@ -3,8 +3,11 @@ import './Login.css';
 import { Link } from 'react-router-dom';
 import ApiService from '../Helpers/ApiService';
 import TokenService from '../Helpers/TokenService';
+import GameContext from '../GameContext';
 
 class Login extends React.Component {
+    static contextType = GameContext;
+    
     state = {
         error: null
     }
@@ -24,6 +27,20 @@ class Login extends React.Component {
       password.value = '';
       TokenService.saveAuthToken(res.authToken);
       this.props.onLoginSuccess();
+      ApiService.getProfileData()
+        .then(profileData => {
+            const {user_name, total_points, team_id, rank, totalPlayers} = profileData;
+            this.context.asyncSetState({
+                user_name,
+                total_points,
+                team_id,
+                rank,
+                totalPlayers
+            });
+        })
+        .catch(res => {
+            this.setState({ error: res.error })
+        })
     })
     .catch(res => {
       this.setState({ error: res.error })

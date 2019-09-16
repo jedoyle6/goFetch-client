@@ -12,6 +12,7 @@ import Login from './Components/Login';
 import SignUp from './Components/SignUp';
 import Profile from './Components/Profile';
 import Rules from './Components/Rules';
+import TokenService from './Helpers/TokenService';
 
 class App extends React.Component {
   state = {
@@ -27,8 +28,14 @@ class App extends React.Component {
     inactivePlayer: 'ai',
     deck: shuffle([...DECK]),
     message: 'It\'s your turn! Pick a card!',
-    playerId: 2,
-    cardsLocked: false
+    cardsLocked: false,
+
+    user_name: 'Billy Bulldog',
+    total_points: 33,
+    rank: 11,
+    totalPlayers: 22,
+    team_id: 2
+    
   }
 
   asyncSetState = (state) => {
@@ -56,7 +63,7 @@ class App extends React.Component {
   endGame = () => {
     const playerScore = this.state.player.score;
     const aiScore = this.state.ai.score;
-    if (playerScore > aiScore) ApiService.reportGameScore(this.state.playerId, this.state.player.score)
+    if (playerScore > aiScore && TokenService.hasAuthToken()) ApiService.reportGameScore(this.state.player.score)
   }
 
   checkEndGame = () => {
@@ -261,7 +268,14 @@ class App extends React.Component {
       restartGame: this.startGame,
       message: this.state.message,
       cardsLocked: this.state.cardsLocked,
-      lockHand: this.lockHand
+      lockHand: this.lockHand,
+      asyncSetState: this.asyncSetState,
+      user_name: this.state.user_name,
+      total_points: this.state.total_points,
+      rank: this.state.rank,
+      totalPlayers: this.state.totalPlayers,
+      team_id: this.state.team_id
+
     }
 
     return (
