@@ -1,6 +1,7 @@
 import React from 'react';
 import './StatusBar.css';
 import GameContext from '../GameContext';
+import { getAvatarByTeamId } from '../Helpers/helpers';
 
 class StatusBar extends React.Component {
     static contextType = GameContext;
@@ -12,7 +13,7 @@ class StatusBar extends React.Component {
                 <div className="player status">
                     <h2 className="status-header">You</h2>
 
-                    <img className="char-icon" src="./Images/Dogs/BillyBulldog_icon.png" alt="character portrait"></img>
+                    <img className="char-icon" src={getAvatarByTeamId(this.context.team_id)} alt="character portrait"></img>
 
                     <div className="cards-in-hand status">
                         <img id="player-cards-in-hand" className="card-icon" src="./Images/CardBack.png" alt="cards in hand"></img>
@@ -45,7 +46,7 @@ class StatusBar extends React.Component {
                         <label htmlFor="ai-cards-in-hand" className="icon-label">{this.context.aiHand.length}</label>
                     </div>
 
-                    <img className="char-icon" src="./Images/Dogs/BillyBulldog_icon.png" alt="character portrait"></img>                                      
+                    <img className="char-icon" src={getAvatarByTeamId(this.context.ai_team)} alt="character portrait"></img>                                      
                 </div>
 
             </div>            

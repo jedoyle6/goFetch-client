@@ -81,3 +81,12 @@ export function handContainsMatch (hand) {
     });
     return match;
 }
+
+export function getAvatarByTeamId (teamId) {    
+    switch (teamId) {
+        case 1: return "./Images/Dogs/TerryTerrier_icon.png"
+        case 2: return "./Images/Dogs/BillyBulldog_icon.png"
+        case 3: return "./Images/Dogs/PenelopePoodle_icon.png"
+        default: return "./Images/Dogs/BillyBulldog_icon.png"
+    }
+}

@@ -36,7 +36,9 @@ class App extends React.Component {
     total_points: null,
     rank: null,
     totalPlayers: null,
-    team_id: null
+    team_id: null,
+
+    ai_team: null,
     
   }
 
@@ -58,6 +60,12 @@ class App extends React.Component {
   }
 
   startGame = async () => {
+    if (!TokenService.hasAuthToken()) {
+      await this.asyncSetState({
+        team_id: Math.floor(Math.random()*3)+1,
+        ai_team: Math.floor(Math.random()*3)+1
+      })
+    }
     await this.shuffleDeck();
     await this.drawStartingHands();
   }
@@ -276,7 +284,8 @@ class App extends React.Component {
       total_points: this.state.total_points,
       rank: this.state.rank,
       totalPlayers: this.state.totalPlayers,
-      team_id: this.state.team_id
+      team_id: this.state.team_id,
+      ai_team: this.state.ai_team,
 
     }
 
