@@ -1,3 +1,20 @@
 .rules-page {
     margin: 30px;
 }
+
+.rules-text {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+.rules-navbutton {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+    background-color: brown;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 20px;
+    border: 2px solid white;
+    filter: drop-shadow(2px 2px 2px black);
+}

@@ -1,7 +1,9 @@
 .char-icon {
     width: 80px;
     display: inline-block;
-    filter: drop-shadow(1px 1px 1px black)
+    filter: drop-shadow(1px 1px 1px black);
+    margin: auto;
+    margin-bottom: 5px;
 }
 
 .card-icon {
@@ -17,8 +19,9 @@
 
 .status {
     display: inline-block;
-    margin-left: 10px;
-    margin-right: 10px;
+    text-align: center;
+    margin-left: 5px;
+    margin-right: 5px;
 }
 
 .icon-label {
@@ -47,6 +50,7 @@
     margin-bottom: 5px;
     color: white;
     text-shadow: 2px 2px 2px black;
+    min-width: 105px;
 }
 
 .status-bar {
@@ -54,6 +58,9 @@
     padding: 5px;
     display: flex;
     justify-content: space-between;
+    padding-left: 10px;
+    padding-right: 10px;
+    align-items: center;
 }
 
 .footer-text {
@@ -61,4 +68,58 @@
     margin-bottom: 15px;
     color: white;
     text-shadow: 2px 2px 2px black;
+}
+
+.status-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+.icon-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+.ai-status-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-evenly;
+    align-content: center;
+}
+
+.ai-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+}
+
+@media (min-width: 480px) {
+    .status-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    .icon-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    .ai-status-container {
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    
+    .ai-icon-container {
+        display: flex;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
 }

@@ -1,14 +1,53 @@
 .navbar {
     background-color: darkgreen;
     text-align: right;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    font-size: 24px;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
 .navbar-link {
     color: white;
-    margin-right: 10px;
     text-decoration: none;
+    text-shadow: 2px 2px 2px black;
+}
+
+.navbar-button {
+    display: inline-block;    
 }
 
 .navbar-link:visited {
     color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+.nav-label {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    font-size: 16px;
+}
+
+.nav-icon {
+    display: block;
+}
+
+@media (max-width: 540px) {
+    .nav-label {
+        display: none;
+    }
+
+}
+
+@media (min-width: 541px) {
+    .nav-label {
+        display: block;
+    }
+    .navbar-button {
+        width: 90px;    
+    }
+
 }

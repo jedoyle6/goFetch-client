@@ -33,15 +33,10 @@ class Profile extends React.Component {
   render() {
     return(
       <div className="profile-page">
-        <h1>{this.context.user_name}</h1>
+        <h1 className="profile-text">{this.context.user_name}</h1>
         <img src={getAvatarByTeamId(this.context.team_id)} alt="Your player avatar" className="avatar"></img>
-        <h2>Total Points: {this.context.total_points}</h2>
-        <h3>You are currently ranked {this.context.rank} out of {this.context.totalPlayers}.</h3>
-        <Link to='/leaderboard'><button className="profile-navbutton">Leaderboard</button></Link>
-        <Link to='/game'><button className="profile-navbutton">Play!</button></Link>
-        <Link to='/rules'><button className="profile-navbutton">Rules</button></Link>
-        <Link to='/'><button className="profile-navbutton" onClick={TokenService.clearAuthToken}>Log Out</button></Link>
-          
+        <h2 className="profile-text">Total Points: {this.context.total_points}</h2>
+        <h3 className="profile-text">You are currently ranked {this.context.rank} out of {this.context.totalPlayers}.</h3>
       </div>
     );
   }

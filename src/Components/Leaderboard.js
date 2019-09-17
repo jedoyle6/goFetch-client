@@ -32,6 +32,7 @@ class Leaderboard extends React.Component {
                 <div className="leaderboard">
                     <h1 className="leaderboard-header">Leaderboard</h1>
                     <button className="leaderboard-toggle" onClick={() => this.setState({show: 'team'})}>Team</button>
+                    <button className="leaderboard-toggle" onClick={this.updateLeaderboard}>Refresh</button>
                     <button className="leaderboard-toggle" onClick={() => this.setState({show: 'player'})}>Player</button>
                     <div className="leaderboard-container">
                         <button className="leaderboard-nav"><i className="fas fa-angle-left"></i></button>
@@ -50,10 +51,7 @@ class Leaderboard extends React.Component {
                         <button className="leaderboard-nav"><i className="fas fa-angle-right"></i></button>
                     </div>
                 </div>
-                <div>
-                    <button className="leaderboard-startgame" onClick={this.updateLeaderboard}>Refresh</button>
-                    <Link to='/game'><button className="leaderboard-startgame">Play!</button></Link>
-                </div>                
+
             </div>            
         );
     }
