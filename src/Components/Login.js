@@ -60,7 +60,7 @@ class Login extends React.Component {
 
                     <div>
                     <label className="login-label" htmlFor="password">Password:</label>
-                    <input className="login-text-input" type="text" name="password" id="password"></input>
+                    <input className="login-text-input" type="password" name="password" id="password"></input>
                     </div>
                     <p id="error-message">{this.state.error}</p>
                     <button type="submit">Submit</button>

@@ -44,26 +44,26 @@ class SignUp extends React.Component {
 
                     <div>
                     <label className="signup-label" htmlFor="password">Password:</label>
-                    <input className="signup-text-input" type="text" name="password" id="password" required></input>
+                    <input className="signup-text-input" type="password" name="password" id="password" required></input>
                     </div>
 
                     <div>
                         <label htmlFor="team_id" className="team-select-label">Pick Your Team:</label>
 
                         <div className="team-select-container">
-                            <label htmlFor="terriers">Terrific Terriers</label>
+                            <label htmlFor="terriers" className="team-name-label">Terrific Terriers</label>
                             <img src="./Images/Dogs/TerryTerrier_icon.png" alt="A Terrier in military uniform" className="teamicon"></img>
                             <input type="radio" name="team_id" id="terriers" value="1" required/>
                         </div>
 
                         <div className="team-select-container">
-                            <label htmlFor="bulldogs">Bestest Bulldogs</label>
+                            <label htmlFor="bulldogs" className="team-name-label">Bestest Bulldogs</label>
                             <img src="./Images/Dogs/BillyBulldog_icon.png" alt="A Bulldog wearing a coat and hat" className="teamicon"></img>
                             <input type="radio" name="team_id" id="bulldogs" value="2"/>
                         </div>
 
                         <div className="team-select-container">
-                            <label htmlFor="poodles">Precious Poodles</label>
+                            <label htmlFor="poodles" className="team-name-label">Precious Poodles</label>
                             <img src="./Images/Dogs/PenelopePoodle_icon.png" alt="A Poodle wearing a frilly pink coat" className="teamicon"></img>
                             <input type="radio" name="team_id" id="poodles" value="3"/>
                         </div>

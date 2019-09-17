@@ -90,3 +90,12 @@ export function getAvatarByTeamId (teamId) {
         default: return "./Images/Dogs/BillyBulldog_icon.png"
     }
 }
+
+export function getPortraitByTeamId (teamId) {
+    switch (teamId) {
+        case 1: return "./Images/Dogs/TerryTerrier.png"
+        case 2: return "./Images/Dogs/BillyBulldog.png"
+        case 3: return "./Images/Dogs/PenelopePoodle.png"
+        default: return "./Images/BackgroundImage.png"
+    }
+}

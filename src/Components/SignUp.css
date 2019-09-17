@@ -17,7 +17,9 @@
 .signup-form {
     margin: auto;
     margin-top: 5px;
-    width: 400px;
+    min-width: 270px;
+    max-width: 500px;
+    width: 85%;
     padding: 1em;
     border: 1px solid white;
     border-radius: 1em;
@@ -32,7 +34,16 @@
 }
 
 .signup-text-input {
-    width: 300px;
+    width: 80%;
     box-sizing: border-box;
     border: 1px solid #999;
+}
+
+.team-name-label {
+    font-size: 14px;
+}
+
+#error-message {
+    color: red;
+    font-size: 18px;
 }
