@@ -1,6 +1,6 @@
 .background {
     min-height: 100%;
-    min-width: 320px;
+    min-width: 880px;
     width: 100%;
     height: auto;
     position: fixed;
@@ -33,3 +33,9 @@
     align-items: center;
 }
 
+@media screen and (max-width: 880px) {
+    .background {
+        left: 50%;
+        margin-left: -440px;
+    }
+}
