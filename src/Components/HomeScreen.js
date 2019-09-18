@@ -1,7 +1,5 @@
 import React from 'react';
 import './HomeScreen.css';
-import { Link } from 'react-router-dom';
-import TokenService from '../Helpers/TokenService';
 
 class HomeScreen extends React.Component {
 

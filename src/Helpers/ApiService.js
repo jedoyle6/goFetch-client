@@ -20,14 +20,14 @@ const ApiService ={
         )
     },
 
-    reportGameScore (player_id, points) {
+    reportGameScore (points) {
         return fetch(`${config.API_ENDPOINT}/gamelog`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
                 'Authorization': `Bearer ${TokenService.getAuthToken()}`
             },
-            body: JSON.stringify({player_id, points})
+            body: JSON.stringify({points})
         })
         .then(res => 
             (!res.ok) 

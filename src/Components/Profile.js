@@ -1,6 +1,5 @@
 import React from 'react';
 import './Profile.css';
-import { Link } from 'react-router-dom';
 import GameContext from '../GameContext';
 import ApiService from '../Helpers/ApiService';
 import TokenService from '../Helpers/TokenService';

@@ -1,7 +1,6 @@
 import React from 'react';
 import './Leaderboard.css';
 import ScoreEntry from './ScoreEntry'
-import { Link } from 'react-router-dom';
 import ApiService from '../Helpers/ApiService';
 
 class Leaderboard extends React.Component {
@@ -34,6 +33,11 @@ class Leaderboard extends React.Component {
         }
     }
 
+    setShowPerPage = (event) => {        
+        const newValue = parseInt(event.target.value);
+        this.setState({showPerPage: newValue})
+    }
+
     updateLeaderboard = () => {
         Promise.all([ApiService.getPlayerLeaderboard(), ApiService.getTeamLeaderboard()]).then(values => {
             const playerScoreData = values[0];
@@ -62,8 +66,8 @@ class Leaderboard extends React.Component {
                     <button className="leaderboard-toggle" onClick={() => this.setState({show: 'team'})}>Team</button>
                     <button className="leaderboard-toggle" onClick={this.updateLeaderboard}><i className="fas fa-sync-alt"></i></button>
                     <button className="leaderboard-toggle" onClick={() => this.setState({show: 'player'})}>Player</button>
+                    
                     <div className="leaderboard-container">
-                        <button className="leaderboard-nav"><i className="fas fa-angle-left button-icon"></i>Prev</button>
                         <table className="leaderboard-table">
                             <thead>
                                 <tr>
@@ -76,9 +80,17 @@ class Leaderboard extends React.Component {
                                 {this.state.show === 'player' ? playerScores : teamScores}
                             </tbody>
                         </table>
-                        <button className="leaderboard-nav"><i className="fas fa-angle-right button-icon"></i>Next</button>
                     </div>
-                    <p>Page {this.state.show === 'player' ? playerPage : teamPage} of {this.state.show === 'player' ? totalPlayerPages : totalTeamPages}</p>
+                    
+                    <button className="leaderboard-nav" onClick={this.pagePrevious}><i className="fas fa-angle-left button-icon"></i> Prev</button>
+                    <span className="leaderboard-text">-  Page {this.state.show === 'player' ? playerPage : teamPage} of {this.state.show === 'player' ? totalPlayerPages : totalTeamPages}  -</span>
+                    <button className="leaderboard-nav" onClick={this.pageNext}>Next <i className="fas fa-angle-right button-icon"></i></button>
+                    
+                    <p className="leaderboard-text">Show Per Page:</p>
+                    <button value="5" onClick={e => this.setShowPerPage(e)}>5</button>
+                    <button value="10" onClick={e => this.setShowPerPage(e)}>10</button>
+                    <button value="15" onClick={e => this.setShowPerPage(e)}>15</button>
+                    <button value="20" onClick={e => this.setShowPerPage(e)}>20</button>
                 </div>
 
             </div>            

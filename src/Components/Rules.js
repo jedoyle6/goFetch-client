@@ -1,6 +1,5 @@
 import React from 'react';
 import './Rules.css';
-import { Link } from 'react-router-dom';
 import GameContext from '../GameContext';
 
 class Rules extends React.Component {

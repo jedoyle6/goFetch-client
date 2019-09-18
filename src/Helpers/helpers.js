@@ -99,3 +99,12 @@ export function getPortraitByTeamId (teamId) {
         default: return "./Images/BackgroundImage.png"
     }
 }
+
+export function getAiName (teamId) {
+    switch (teamId) {
+        case 1: return 'Terry'
+        case 2: return 'Billy'
+        case 3: return 'Penelope'
+        default: return 'Opponent'
+    }
+}

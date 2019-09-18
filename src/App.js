@@ -40,7 +40,24 @@ class App extends React.Component {
     team_id: null,
 
     ai_team: null,
+
+    summary_header: '',
+    summary_footer: ''
     
+  }
+
+  forceEndGame = async () => {
+    await this.asyncSetState({
+      player: {
+        hand: [],
+        score: 5
+      },
+      ai: {
+        hand: [],
+        score: 3
+      }
+    })
+    this.endGame()
   }
 
   asyncSetState = (state) => {
@@ -87,7 +104,28 @@ class App extends React.Component {
   endGame = () => {
     const playerScore = this.state.player.score;
     const aiScore = this.state.ai.score;
-    if (playerScore > aiScore && TokenService.hasAuthToken()) ApiService.reportGameScore(this.state.player.score)
+    if (playerScore > aiScore && TokenService.hasAuthToken()) {
+      ApiService.reportGameScore(this.state.player.score)
+      this.setState({
+        summary_header: 'You Win!',
+        summary_footer: `You earn ${playerScore} points!`
+      })
+    } else if (playerScore > aiScore) {
+      this.setState({
+        summary_header: 'You Win!',
+        summary_footer: 'No points submitted to leaderboard'
+      })
+    } else if (playerScore < aiScore) {
+      this.setState({
+        summary_header: 'The AI Wins!',
+        summary_footer: 'Better luck next time!'
+      })
+    } else {
+      this.setState({
+        summary_header: 'It\'s a Draw!',
+        summary_footer: 'What a close match!'
+      })
+    }
   }
 
   checkEndGame = () => {
@@ -300,6 +338,9 @@ class App extends React.Component {
       totalPlayers: this.state.totalPlayers,
       team_id: this.state.team_id,
       ai_team: this.state.ai_team,
+      forceEndGame: this.forceEndGame,
+      summary_header: this.state.summary_header,
+      summary_footer: this.state.summary_footer,
 
     }
 

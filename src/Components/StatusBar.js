@@ -1,19 +1,11 @@
 import React from 'react';
 import './StatusBar.css';
 import GameContext from '../GameContext';
-import { getAvatarByTeamId } from '../Helpers/helpers';
+import { getAvatarByTeamId, getAiName } from '../Helpers/helpers';
 
 class StatusBar extends React.Component {
     static contextType = GameContext;
 
-    getAiName = (teamId) => {
-        switch (teamId) {
-            case 1: return 'Terry'
-            case 2: return 'Billy'
-            case 3: return 'Penelope'
-            default: return 'Opponent'
-        }
-    }
 
     render() {
         return(
@@ -41,13 +33,13 @@ class StatusBar extends React.Component {
 
 
                 <div className="deck status">
-                    <button id="deck" className="deck" onClick={() => console.log('clicked the deck button')}></button>
+                    <button id="deck" className="deck" onClick={() => this.context.forceEndGame()}></button>
                     <label htmlFor="deck" className="icon-label">{this.context.cardsInDeck}</label>
                 </div>
 
 
                 <div className="ai status">
-                    <h2 className="status-header">{this.getAiName(this.context.ai_team)}</h2>
+                    <h2 className="status-header">{getAiName(this.context.ai_team)}</h2>
 
                     <div className="ai-icon-container">
                         <img className="char-icon" src={getAvatarByTeamId(this.context.ai_team)} alt="character portrait"></img>
