@@ -5,10 +5,14 @@ import TokenService from '../Helpers/TokenService';
 
 class NavBar extends React.Component {
 
-  state = {error: null}
+
+  handleLogoutClick = () => { 
+    TokenService.clearAuthToken();
+  }
 
 
   render() {
+    
     return(
       <div className="navbar">
 
@@ -48,16 +52,16 @@ class NavBar extends React.Component {
         </Link>          
       
         
-        {TokenService.hasAuthToken() &&
+
         <Link to='/profile' className="navbar-link">
           <div className="navbar-button">
             <i className="far fa-user nav-icon"></i>
             <p className="nav-label">Profile</p>
           </div>
-        </Link>}
+        </Link>
 
         {TokenService.hasAuthToken() && 
-        <Link to='/' onClick={TokenService.clearAuthToken} className="navbar-link nav-icon">
+        <Link to='/' onClick={this.handleLogoutClick} className="navbar-link nav-icon">
           <div className="navbar-button">
             <i className="fas fa-sign-out-alt nav-icon"></i>
             <p className="nav-label">Sign Out</p>
