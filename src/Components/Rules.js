@@ -52,7 +52,7 @@ class Rules extends React.Component {
 
         <a href="#top">
           <button className="rules-navbutton">
-            <i class="fas fa-chevron-circle-up"></i><br/>
+            <i className="fas fa-chevron-circle-up"></i><br/>
             <span className="return-button-text">Back to Top</span>
           </button>
         </a>
