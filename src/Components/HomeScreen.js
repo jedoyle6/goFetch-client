@@ -7,7 +7,7 @@ class HomeScreen extends React.Component {
 
         return(
             <div className="home-screen">
-                <img src="./Images/BackgroundImage.png" className="background" alt="background of dogs playing go fish"></img>
+                <img src="./Images/BackgroundImageWithDogs.png" className="background" alt="background of dogs playing go fish"></img>
                 <h1 className="homescreen-header">Go Fetch!</h1>
                 <h2 className="homescreen-header">Where Dogs Play Go Fish</h2>
 

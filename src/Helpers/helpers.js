@@ -93,10 +93,10 @@ export function getAvatarByTeamId (teamId) {
 
 export function getPortraitByTeamId (teamId) {
     switch (teamId) {
-        case 1: return "./Images/Dogs/TerryTerrier.png"
-        case 2: return "./Images/Dogs/BillyBulldog.png"
-        case 3: return "./Images/Dogs/PenelopePoodle.png"
-        default: return "./Images/BackgroundImage.png"
+        case 1: return "./Images/Dogs/TerryTerrier_opponent.png"
+        case 2: return "./Images/Dogs/BillyBulldog_opponent.png"
+        case 3: return "./Images/Dogs/PenelopePoodle_opponent.png"
+        default: return "./Images/Dogs/BillyBulldog_opponent.png"
     }
 }
 
