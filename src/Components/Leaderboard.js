@@ -35,7 +35,11 @@ class Leaderboard extends React.Component {
 
     setShowPerPage = (event) => {        
         const newValue = parseInt(event.target.value);
-        this.setState({showPerPage: newValue})
+        this.setState({
+            playerPage: 1,
+            teamPage: 1,
+            showPerPage: newValue
+        })
     }
 
     updateLeaderboard = () => {
@@ -56,8 +60,26 @@ class Leaderboard extends React.Component {
         const totalTeamPages = Math.ceil(this.state.teamScoreData.length/showPerPage);
         const playerPage = this.state.playerPage;
         const totalPlayerPages = Math.ceil(this.state.playerScoreData.length/showPerPage);
-        const teamScores = this.state.teamScoreData.slice(showPerPage*(teamPage-1), showPerPage*teamPage).map((teamData, index) => <ScoreEntry key={index} rank={index+1} name={teamData.team_name} score={teamData.sum}/>)
-        const playerScores = this.state.playerScoreData.slice(showPerPage*(playerPage-1), showPerPage*playerPage).map((playerData, index) => <ScoreEntry key={index} rank={index+1} name={playerData.user_name} score={playerData.sum}/>)
+        const teamScores = this.state.teamScoreData
+            .slice(showPerPage*(teamPage-1), showPerPage*teamPage)
+            .map((teamData, index) => 
+                <ScoreEntry 
+                    key={index} 
+                    rank={showPerPage*(teamPage-1)+index+1} 
+                    name={teamData.team_name} 
+                    score={teamData.sum}
+                />
+        )
+        const playerScores = this.state.playerScoreData
+            .slice(showPerPage*(playerPage-1), showPerPage*playerPage)
+            .map((playerData, index) => 
+                <ScoreEntry 
+                    key={index} 
+                    rank={showPerPage*(playerPage-1)+index+1} 
+                    name={playerData.user_name} 
+                    score={playerData.sum}
+                />
+        )
 
         return(
             <div className="leaderboard-screen">

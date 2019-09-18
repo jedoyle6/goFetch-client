@@ -113,7 +113,7 @@ class App extends React.Component {
     } else if (playerScore > aiScore) {
       this.setState({
         summary_header: 'You Win!',
-        summary_footer: 'No points submitted to leaderboard'
+        summary_footer: ''
       })
     } else if (playerScore < aiScore) {
       this.setState({

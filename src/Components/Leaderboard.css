@@ -1,17 +1,22 @@
 .leaderboard-header {
-    color: white;
-    text-shadow: 2px 2px 2px black;
+    /* color: white; */
+    /* text-shadow: 2px 2px 2px black; */
     margin: 0px;
 }
 
 .leaderboard {
-    background-color: darkslategray;
+    background-color: whitesmoke;
+    border: 1px solid white;
+    border-radius: 1em;
     display: inline-block;
     padding: 15px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    min-width: 270px;
+    max-width: 400px;
+    width: 85%;
 }
 
 .leaderboard-table {
@@ -22,7 +27,7 @@
 .leaderboard-toggle {
     background-color: brown;
     color: white;
-    text-shadow: 1px 1px 1px black;
+    /* text-shadow: 1px 1px 1px black; */
     border: 1px solid white;
     width: 80px;
     height: 25px;
@@ -36,8 +41,8 @@
 
 .leaderboard-nav {
     background-color: transparent;
-    color: white;
-    text-shadow: 1px 1px 1px black;
+    /* color: white; */
+    /* text-shadow: 1px 1px 1px black; */
     border: none;
     font-size: 16px;
     /* height: 50px;
@@ -58,6 +63,6 @@
 }
 
 .leaderboard-text {
-    color: white;
-    text-shadow: 1px 1px 1px black;
+    /* color: white; */
+    /* text-shadow: 1px 1px 1px black; */
 }
