@@ -50,14 +50,7 @@ class App extends React.Component {
 
   forceEndGame = async () => {
     await this.asyncSetState({
-      player: {
-        hand: [],
-        score: 5
-      },
-      ai: {
-        hand: [],
-        score: 3
-      }
+      deck: []
     })
     this.endGame()
   }
@@ -115,7 +108,7 @@ class App extends React.Component {
     } else if (playerScore > aiScore) {
       this.setState({
         summary_header: 'You Win!',
-        summary_footer: ''
+        summary_footer: 'You were not logged in at the conclusion of this game. No points were added to your profile.'
       })
     } else if (playerScore < aiScore) {
       this.setState({

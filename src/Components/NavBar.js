@@ -8,6 +8,7 @@ class NavBar extends React.Component {
 
   handleLogoutClick = () => { 
     TokenService.clearAuthToken();
+    this.forceUpdate();
   }
 
 

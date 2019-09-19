@@ -109,10 +109,10 @@ class Leaderboard extends React.Component {
                     <button className="leaderboard-nav" onClick={this.pageNext}>Next <i className="fas fa-angle-right button-icon"></i></button>
                     
                     <p className="leaderboard-text">Show Per Page:</p>
-                    <button value="5" onClick={e => this.setShowPerPage(e)}>5</button>
-                    <button value="10" onClick={e => this.setShowPerPage(e)}>10</button>
-                    <button value="15" onClick={e => this.setShowPerPage(e)}>15</button>
-                    <button value="20" onClick={e => this.setShowPerPage(e)}>20</button>
+                    <button className="leaderboard-num-toggle" value="5" onClick={e => this.setShowPerPage(e)}>5</button>
+                    <button className="leaderboard-num-toggle" value="10" onClick={e => this.setShowPerPage(e)}>10</button>
+                    <button className="leaderboard-num-toggle" value="15" onClick={e => this.setShowPerPage(e)}>15</button>
+                    <button className="leaderboard-num-toggle" value="20" onClick={e => this.setShowPerPage(e)}>20</button>
                 </div>
 
             </div>            

@@ -20,7 +20,7 @@ class HomeScreen extends React.Component {
                     <p className="homescreen-text">If you need a refresher on how to play, take a look at the <i className="fas fa-scroll"></i> Rules section.</p>
                     <p className="homescreen-text">And if you want to check your ranking (or the ranking of your team), check out the <i className="fas fa-trophy"></i> Leaderboard.</p>
                     <p className="homescreen-text">Have Fun!</p>
-                    <button onClick={this.context.hideIntro}>Dismiss</button>
+                    <button className="homescreen-text-dismiss" onClick={this.context.hideIntro}>Dismiss</button>
                     
                 </div>               
                 

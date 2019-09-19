@@ -54,6 +54,15 @@ h2.homescreen-header {
     padding: 20px;
 }
 
+.homescreen-text-dismiss {
+    background-color: white;
+    color: black;
+    /* text-shadow: 1px 1px 1px black; */
+    border: 1px solid darkgrey;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
 @media screen and (max-width: 880px) {
     .background {
         left: 50%;

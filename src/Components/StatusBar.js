@@ -33,7 +33,7 @@ class StatusBar extends React.Component {
 
 
                 <div className="deck status">
-                    <button id="deck" className="deck" onClick={() => this.context.forceEndGame()}></button>
+                    <button id="deck" className="deck" onClick={() => this.context.restartGame()}></button>
                     <label htmlFor="deck" className="icon-label">{this.context.cardsInDeck}</label>
                 </div>
 
