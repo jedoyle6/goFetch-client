@@ -54,6 +54,54 @@ export function cardCodeToRequest (code) {
 }
 
 
+//cardCodeToName takes a 3-character card code and returns a string containing the given plural card name
+export function cardCodeToPluralName (code) {
+    const numCode = code.slice(1)
+    switch (numCode) {
+        case '01': return 'ones';
+        case '02': return 'twos';
+        case '03': return 'threes';
+        case '04': return 'fours';
+        case '05': return 'fives';
+        case '06': return 'sixes';
+        case '07': return 'sevens';
+        case '08': return 'eights';
+        case '09': return 'nines';
+        case '10': return 'tens';
+        case '11': return 'jacks';
+        case '12': return 'queens';
+        case '13': return 'kings';
+        default: 
+            console.log("Helper function cardCodeToPluralName was given an invalid string");
+            return "Helper function cardCodeToPluralName was given an invalid string";
+    }
+}
+
+
+//cardCodeToName takes a 3-character card code and returns a string containing the given card name
+export function cardCodeToName (code) {
+    const numCode = code.slice(1)
+    switch (numCode) {
+        case '01': return 'one';
+        case '02': return 'two';
+        case '03': return 'three';
+        case '04': return 'four';
+        case '05': return 'five';
+        case '06': return 'six';
+        case '07': return 'seven';
+        case '08': return 'eight';
+        case '09': return 'nine';
+        case '10': return 'ten';
+        case '11': return 'jack';
+        case '12': return 'queen';
+        case '13': return 'king';
+        default: 
+            console.log("Helper function cardCodeToName was given an invalid string");
+            return "Helper function cardCodeToName was given an invalid string";
+    }
+}
+
+
 //sortByValue takes an array of card codes and returns a copy arranged by card value
 export function sortByValue (array) {
     let hand = [...array]   

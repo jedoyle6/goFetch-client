@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import './App.css';
 import GameScreen from './Components/GameScreen';
 import SummaryScreen from './Components/SummaryScreen';
-import { DECK, shuffle, sortByValue, handContainsCard, handContainsMatch, cardCodeToRequest } from './Helpers/helpers';
+import { DECK, shuffle, sortByValue, handContainsCard, handContainsMatch, cardCodeToRequest, cardCodeToPluralName, getAiName, cardCodeToName } from './Helpers/helpers';
 import GameContext from './GameContext';
 import Leaderboard from './Components/Leaderboard';
 import HomeScreen from './Components/HomeScreen';
@@ -42,7 +42,9 @@ class App extends React.Component {
     ai_team: null,
 
     summary_header: '',
-    summary_footer: ''
+    summary_footer: '',
+
+    showIntro: true
     
   }
 
@@ -203,10 +205,15 @@ class App extends React.Component {
     const activePlayer = this.state.activePlayer;
     const activeHand = this.state[activePlayer].hand;
     const match = handContainsMatch(this.state[activePlayer].hand)
+    let speaker;
+    if (activePlayer === 'player') {
+      speaker = 'You'
+    } else {
+      speaker = getAiName(this.state.ai_team)
+    }
 
       if (match) {
-        console.log(`${activePlayer} matched a set of four ${match.slice(1)}'s`)
-        await this.displayText(`${activePlayer} matched a set of four ${match.slice(1)}'s`, 1500)
+        await this.displayText(`${speaker} matched a set of four ${cardCodeToPluralName(match)}!`, 1500)
         return this.asyncSetState({
           [activePlayer]: {
             hand: activeHand.filter(card => !card.includes(match.slice(1))),
@@ -225,12 +232,19 @@ class App extends React.Component {
     const inactivePlayer = this.state.inactivePlayer;
     let activeHand = [...this.state[activePlayer].hand];
     let inactiveHand = [...this.state[inactivePlayer].hand];
-    console.log(`${activePlayer}'s hand: ${activeHand}`)
-    console.log(`${inactivePlayer}'s hand: ${inactiveHand}`)
-    console.log(`${activePlayer} says: ${cardCodeToRequest(cardId)}`)
+    let activeSpeaker;
+    let inactiveSpeaker;
+    if (activePlayer === 'player') {
+      activeSpeaker = 'You';
+      inactiveSpeaker = getAiName(this.state.ai_team);
+    } else {
+      activeSpeaker = getAiName(this.state.ai_team);
+      inactiveSpeaker = 'You';
+    }
+
     //Lock the hand so the player can't button mash
     await this.lockHand()
-    await this.displayText(`${activePlayer} says: ${cardCodeToRequest(cardId)}`, 1500)
+    await this.displayText(`${activeSpeaker}: ${cardCodeToRequest(cardId)}`, 1500)
 
     if (handContainsCard(cardId, inactiveHand)) {
       //If present, removes all cards of the given value from the inactive player's hand and adds them to the active player's hand
@@ -251,28 +265,33 @@ class App extends React.Component {
       //Checks for any matches of four cards
       //Checks for endgame state
       //Checks to see if it's the AI's turn - if it is, the AI takes another turn
-      console.log('Matching card found in other hand! Pick another card!')
       
-      await this.checkAndHandleMatch()
+      
       if (this.checkEndGame()) {
         this.endGame()
       } else if (activePlayer==='ai') {
-        await this.displayText('Matching card found in other hand! Pick another card!', 1500)
+        await this.displayText(`You hand over your ${cardCodeToPluralName(cardId)}.`, 1500)
+        await this.checkAndHandleMatch()
         this.handleCardRequest(this.aiPickCard())
       } else {
-        await this.displayText('Matching card found in other hand! Pick another card!', 1)
+        await this.displayText(`${inactiveSpeaker}: Here you go!`, 1500)
+        await this.displayText(`${inactiveSpeaker} hands you their ${cardCodeToPluralName(cardId)}.`, 1500)
+        await this.checkAndHandleMatch()
+        await this.displayText(`Pick another card!`, 1)
         await this.unlockHand() //Unlock the player's hand so they can go again
       }
       
             
     } else {
       //If the requested card is not present, active player draws one card
-      console.log('No matching card found! Go Fish!')
-      await this.displayText('No matching card found! Go Fish!', 1500)
+      await this.displayText(`${inactiveSpeaker}: Sorry! Go Fish!`, 1500)
       //Check the top card of the deck (before it's drawn) and see if it's a match to the card the player requested
       const match = this.state.deck[0].slice(1) === cardId.slice(1)
       //Then draw the card and process any matches
       await this.drawCard(activePlayer)
+      if (match && activePlayer === 'player') {
+        await this.displayText(`Lucky! ${activeSpeaker} drew another ${cardCodeToName(cardId)}!`, 1000)
+      }
       await this.checkAndHandleMatch()
 
       //Check for endgame state
@@ -283,14 +302,13 @@ class App extends React.Component {
       //Otherwise, if the card is a match, the active player gets another turn
       //Have the AI request another card, if it's the AI's turn
       else if (match) {
-        console.log(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`)
                 
         if (activePlayer === 'ai') {
-          await this.displayText(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`, 1500)
+          await this.displayText(`Lucky! ${activeSpeaker} drew another ${cardCodeToName(cardId)}!`, 1500)
           this.handleCardRequest(this.aiPickCard())
         }
         if (activePlayer === 'player') {
-          await this.displayText(`Lucky! ${activePlayer} drew another ${cardId.slice(1)}! Pick another card.`, 1)
+          await this.displayText(`Pick another card.`, 1)
           await this.unlockHand() //Unlock the player's hand so they can go again
         }
       }
@@ -299,7 +317,7 @@ class App extends React.Component {
       else if (!match) {
         await this.switchActivePlayer();
         if (this.state.activePlayer === 'ai') {
-          await this.displayText(`It's your opponent's turn!`, 1500)
+          await this.displayText(`It's ${getAiName(this.state.ai_team)}'s turn!`, 1500)
           this.handleCardRequest(this.aiPickCard())
         } else if (this.state.activePlayer === 'player') {
           await this.displayText(`It's your turn! Pick a card!`, 1)
@@ -341,6 +359,8 @@ class App extends React.Component {
       forceEndGame: this.forceEndGame,
       summary_header: this.state.summary_header,
       summary_footer: this.state.summary_footer,
+      showIntro: this.state.showIntro,
+      hideIntro: () => {this.setState({showIntro: false})}
 
     }
 

@@ -52,13 +52,13 @@ class NavBar extends React.Component {
         </Link>          
       
         
-
+        {TokenService.hasAuthToken() &&
         <Link to='/profile' className="navbar-link">
           <div className="navbar-button">
             <i className="far fa-user nav-icon"></i>
             <p className="nav-label">Profile</p>
           </div>
-        </Link>
+        </Link>}
 
         {TokenService.hasAuthToken() && 
         <Link to='/' onClick={this.handleLogoutClick} className="navbar-link nav-icon">
