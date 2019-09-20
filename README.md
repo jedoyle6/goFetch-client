@@ -1,3 +1,11 @@
+# Go Fetch! - Client Side
+This web application allows the user to play a card game, Go Fish, against an AI opponent.
+You can see it live [here](https://go-fetch.jessicaedoyle.now.sh/).
+This is only the client-side code, written using React, Javascript, HTML, and CSS.
+The server-side code can be found [here](https://github.com/jedoyle6/goFetch-server), and was written with Javascript, Express, Node, and Postgresql.
+
+
+Additional Information
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
