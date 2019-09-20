@@ -70,7 +70,11 @@ class App extends React.Component {
   startGame = async () => {
     await this.shuffleDeck();
     await this.drawStartingHands();
-    await this.asyncSetState({ai_team: Math.floor(Math.random()*3)+1})
+    await this.asyncSetState({
+      ai_team: Math.floor(Math.random()*3)+1,
+      message: 'It\'s your turn! Pick a card!',
+      cardsLocked: false
+    })
     if (!TokenService.hasAuthToken()) {
       await this.asyncSetState({
         team_id: Math.floor(Math.random()*3)+1,

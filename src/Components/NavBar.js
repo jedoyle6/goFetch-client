@@ -2,13 +2,16 @@ import React from 'react';
 import './NavBar.css';
 import { Link } from 'react-router-dom';
 import TokenService from '../Helpers/TokenService';
+import GameContext from '../GameContext';
 
 class NavBar extends React.Component {
+  static contextType = GameContext;
 
 
   handleLogoutClick = () => { 
     TokenService.clearAuthToken();
     this.forceUpdate();
+    this.context.restartGame();
   }
 
 
