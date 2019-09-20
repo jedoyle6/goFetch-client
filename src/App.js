@@ -16,6 +16,8 @@ import TokenService from './Helpers/TokenService';
 import PrivateOnlyRoute from './Helpers/PrivateOnlyRoute';
 import PublicOnlyRoute from './Helpers/PublicOnlyRoute';
 import NavBar from './Components/NavBar';
+import NotFoundPage from './Components/NotFoundPage';
+import ErrorBoundary from './Components/ErrorBoundary';
 
 class App extends React.Component {
   state = {
@@ -46,13 +48,6 @@ class App extends React.Component {
 
     showIntro: true
     
-  }
-
-  forceEndGame = async () => {
-    await this.asyncSetState({
-      deck: []
-    })
-    this.endGame()
   }
 
   asyncSetState = (state) => {
@@ -349,7 +344,6 @@ class App extends React.Component {
       totalPlayers: this.state.totalPlayers,
       team_id: this.state.team_id,
       ai_team: this.state.ai_team,
-      forceEndGame: this.forceEndGame,
       summary_header: this.state.summary_header,
       summary_footer: this.state.summary_footer,
       showIntro: this.state.showIntro,
@@ -360,21 +354,25 @@ class App extends React.Component {
     return (
     <div className="App">
       <GameContext.Provider value={gameContextValue}>
-        <NavBar />
-        <Switch>
-          <Route exact path='/' component={HomeScreen}/>
-          <Route path='/leaderboard' component={Leaderboard} />
-          {
-            this.checkEndGame() &&
-            <Route path='/game' component={SummaryScreen} />
-          }
-          <Route path='/game' component={GameScreen} />
-          <PublicOnlyRoute path='/login' component={Login} />
-          <PublicOnlyRoute path='/signup' component={SignUp} />
-          <PrivateOnlyRoute path='/profile' component={Profile} />
-          <Route path='/rules' component={Rules} />
-
-        </Switch>        
+        <ErrorBoundary>
+          <NavBar />
+        </ErrorBoundary>
+        <ErrorBoundary>
+          <Switch>
+            <Route exact path='/' component={HomeScreen}/>
+            <Route path='/leaderboard' component={Leaderboard} />
+            {
+              this.checkEndGame() &&
+              <Route path='/game' component={SummaryScreen} />
+            }
+            <Route path='/game' component={GameScreen} />
+            <PublicOnlyRoute path='/login' component={Login} />
+            <PublicOnlyRoute path='/signup' component={SignUp} />
+            <PrivateOnlyRoute path='/profile' component={Profile} />
+            <Route path='/rules' component={Rules} />
+            <Route component={NotFoundPage} />
+          </Switch> 
+        </ErrorBoundary>
       </GameContext.Provider>
     </div>
     )

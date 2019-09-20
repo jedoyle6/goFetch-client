@@ -1,0 +1,18 @@
+.error-bound:visited {
+    color: white;
+    text-shadow: 2px 2px 2px black;
+}
+
+.error-bound {
+    color: white;
+    text-decoration: none;
+    text-shadow: 2px 2px 2px black;
+}
+
+.notfound-button {
+    border: 1px solid white;
+    display: inline-block;
+    padding: 10px;
+    border-radius: 4px;
+    filter: drop-shadow(1px 1px 1px black);
+}
