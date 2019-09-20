@@ -2,10 +2,10 @@
 This web application allows the user to play a card game, Go Fish, against an AI opponent. It also supports player profile creation, and tracks a leaderboard of registered players and their associated teams. <br>
 You can see it live [here](https://go-fetch.jessicaedoyle.now.sh/). <br>
 This is only the client-side code, written using React, Javascript, HTML, and CSS. <br>
-The server-side code can be found [here](https://github.com/jedoyle6/goFetch-server), and was written with Javascript, Express, Node, and Postgresql.
+The server-side code can be found [here](https://github.com/jedoyle6/goFetch-server), and was written with Javascript, Express, Node, and Postgresql. <br>
 
 
-Additional Information
+Additional Information <br>
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
