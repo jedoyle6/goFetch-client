@@ -34,7 +34,7 @@ export function shuffle (deck) {
 export function cardCodeToRequest (code) {
     const numCode = code.slice(1)
     switch (numCode) {
-        case '01': return 'Have you got any ones?';
+        case '01': return 'Have you got any aces?';
         case '02': return 'Have you got any twos?';
         case '03': return 'Have you got any threes?';
         case '04': return 'Have you got any fours?';
@@ -58,7 +58,7 @@ export function cardCodeToRequest (code) {
 export function cardCodeToPluralName (code) {
     const numCode = code.slice(1)
     switch (numCode) {
-        case '01': return 'ones';
+        case '01': return 'aces';
         case '02': return 'twos';
         case '03': return 'threes';
         case '04': return 'fours';
@@ -82,7 +82,7 @@ export function cardCodeToPluralName (code) {
 export function cardCodeToName (code) {
     const numCode = code.slice(1)
     switch (numCode) {
-        case '01': return 'one';
+        case '01': return 'ace';
         case '02': return 'two';
         case '03': return 'three';
         case '04': return 'four';
