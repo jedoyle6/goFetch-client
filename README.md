@@ -1,4 +1,5 @@
 # Go Fetch! - Client Side
+# ![WebApp](https://github.com/jedoyle6/goFetch-client/blob/master/public/Images/screenshots/game.PNG?raw=true) <br>
 This web application allows the user to play a card game, Go Fish, against an AI opponent. It also supports player profile creation, and tracks a leaderboard of registered players and their associated teams. <br>
 
 You can see it live [here](https://go-fetch.jessicaedoyle.now.sh/). <br>
