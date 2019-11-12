@@ -2,28 +2,43 @@ import React from 'react';
 import './SignUp.css';
 import { Link } from 'react-router-dom';
 import ApiService from '../Helpers/ApiService';
+import TokenService from '../Helpers/TokenService';
+import GameContext from '../GameContext';
 
 class SignUp extends React.Component {
+    static contextType = GameContext;
     state = {
         error: null
     }
 
     handleSubmitSignup = (event) => {
         event.preventDefault();
-        console.log('Submitted!');
         const { user_name, password, team_id } = event.target
 
         this.setState({ error: null })
+
         ApiService.postUser({
         user_name: user_name.value,
         password: password.value,
         team_id: team_id.value
         })
-        .then(user => {
+        .then(res => {
             user_name.value = ''
             password.value = ''
             team_id.value = ''
-            this.props.onRegistrationSuccess()
+            TokenService.saveAuthToken(res.authToken);
+
+            ApiService.getProfileData()
+            .then(profileData => {
+                const {user_name, total_points, team_id, rank, totalPlayers} = profileData;
+                return this.context.asyncSetState({
+                    user_name,
+                    total_points,
+                    team_id,
+                    rank,
+                    totalPlayers
+                });
+            })
         })
         .catch(res => {
             this.setState({ error: res.error})
