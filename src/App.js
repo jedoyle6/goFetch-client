@@ -70,28 +70,49 @@ class App extends React.Component {
   startGame = async () => {
     await this.shuffleDeck();
     await this.drawStartingHands();
-    await this.asyncSetState({
-      ai_team: Math.floor(Math.random()*3)+1,
-      message: 'It\'s your turn! Pick a card!',
-      cardsLocked: false
-    })
+
+    const all_teams = [1, 2, 3]
+    let ai_teams = all_teams.filter(team => team !== this.state.team_id)  
+
+    //if not logged in, pick random teams
     if (!TokenService.hasAuthToken()) {
+      const ai_team = ai_teams[(Math.floor(Math.random()*ai_teams.length))]
+      const player_teams = all_teams.filter(team => team !== ai_team)
+      const team_id = player_teams[(Math.floor(Math.random()*player_teams.length))]
       await this.asyncSetState({
-        team_id: Math.floor(Math.random()*3)+1,
+        team_id,
+        ai_team,
+        message: 'It\'s your turn! Pick a card!',
+        cardsLocked: false
       })
-    } else if (TokenService.hasAuthToken() && !this.state.team_id) {
+    }
+    //if logged in but without a team id, fetch the user team before setting opponent
+    else if (TokenService.hasAuthToken() && !this.state.team_id) {
       await ApiService.getProfileData()
         .then(profileData => {
           const {user_name, total_points, team_id, rank, totalPlayers} = profileData;
+          ai_teams = ai_teams.filter(team => team !== team_id)
+          const ai_team = ai_teams[(Math.floor(Math.random()*ai_teams.length))]
           return this.asyncSetState({
               user_name,
               total_points,
               team_id,
+              ai_team,
+              message: 'It\'s your turn! Pick a card!',
+              cardsLocked: false,
               rank,
               totalPlayers
           });
       })
       .catch(err => console.log(err.message))
+    }
+    //otherwise just assign a new opponent and start the game
+    else {
+      await this.asyncSetState({
+        ai_team: ai_teams[(Math.floor(Math.random()*ai_teams.length))],
+        message: 'It\'s your turn! Pick a card!',
+        cardsLocked: false
+      })
     }
   }
 
